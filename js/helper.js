@@ -8,7 +8,7 @@ const inputSubmitPrev = document.querySelector(".input_submit-prev");
 
 
 
-inputSubmitIdentifier.addEventListener("click", async (e)=> {
+/* inputSubmitIdentifier.addEventListener("click", async (e)=> {
 
     
     // Seleccionar el input y leer valores
@@ -36,11 +36,19 @@ inputSubmitIdentifier.addEventListener("click", async (e)=> {
 inputSubmitPrev.addEventListener("click",()=>{
     components.showStartComponent(false);
 
-})
+}) */
 
-function showComponent() {
-    
+function showComponent(source, component) {
+    source.innerHTML += component;
+}
+function hideComponent(source, component) {
+    //console.log(source.innerHTML.replace(component));
+    source.innerHTML = source.innerHTML.replace(component,'');
+}
+function clearBody() {
+    document.querySelector('.body').innerHTML = "";
+    //console.log(source.innerHTML.replace(component));
 }
 
-export { showComponent }
+export { showComponent, hideComponent, clearBody }
  

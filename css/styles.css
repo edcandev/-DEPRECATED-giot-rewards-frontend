@@ -53,6 +53,15 @@ body {
     background-color: var(--yellow-light);
 
 }
+.section_home {
+    display: flex;
+    flex-wrap: wrap;
+    height: 80%;
+    align-content: space-evenly;
+    justify-content: center;
+    background-color: var(--yellow-light);
+
+}
 .section_login {
     display: flex;
     height: 20%;
