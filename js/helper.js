@@ -29,4 +29,9 @@ inputSubmitPrev.addEventListener("click",()=>{
 
 })
 
+function showComponent() {
+    
+}
+
+export { showComponent }
  
