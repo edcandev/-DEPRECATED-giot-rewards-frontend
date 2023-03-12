@@ -31,8 +31,10 @@ body {
 .h1_header {
     width: 60%;
     height: 70%;
-    font-size: 370%;
-    color:var(--gray-dark)
+    font-size: 350%;
+    color:var(--gray-dark);
+    line-height: 100%;
+    
 }
 
 .img_header {
@@ -84,7 +86,7 @@ body {
 
 .label_login {
     width: 100%;
-    font-size: 290%;
+    font-size: 280%;
     height: 50%;
 
 }

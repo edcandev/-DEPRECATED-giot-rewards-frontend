@@ -39,16 +39,22 @@ inputSubmitPrev.addEventListener("click",()=>{
 }) */
 
 function showComponent(source, component) {
-    source.innerHTML += component;
+    source.appendChild(component);
 }
 function hideComponent(source, component) {
     //console.log(source.innerHTML.replace(component));
-    source.innerHTML = source.innerHTML.replace(component,'');
+    //source.innerHTML = source.innerHTML.replace(component,'');
 }
 function clearBody() {
     document.querySelector('.body').innerHTML = "";
     //console.log(source.innerHTML.replace(component));
 }
+function modifyInnerHTML(source, elementClass, innerHTML) {
 
-export { showComponent, hideComponent, clearBody }
- 
+    const elementToModify = source.getElementsByClassName(elementClass)[0];
+    console.log(elementToModify);
+    elementToModify.innerHTML = innerHTML;
+}
+
+
+export { showComponent, hideComponent, clearBody, modifyInnerHTML }

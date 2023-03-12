@@ -23,35 +23,79 @@ addEventListener('DOMContentLoaded', () => {
 
 function toStartView() {
     helper.clearBody();
-    helper.showComponent(body,components.header);
-    helper.showComponent(body,components.carousel);
-    helper.showComponent(body,components.loginIdentifier);
-    inputSubmitIdentifier = document.querySelector('.input_submit-identifier');
-    createListener(inputSubmitIdentifier,'click', ()=> {
+    helper.showComponent(body,components.header());
+    helper.showComponent(body,components.carousel());
+    helper.showComponent(body,components.loginIdentifier());
 
-        // Peticion POST Identifier
+    
 
-        toPasswordView(document.querySelector('.input_login').value);
+    inputSubmitIdentifier = document.querySelector(".input_submit_identifier");
+    defineListener(inputSubmitIdentifier,'click', async ()=> {
+
+        // Revisamos si existe el indentificador
+
+        const identifierJSON = JSON.stringify(
+            {
+            "identifier": parseInt(document.querySelector('.input_login').value)
+            });
+
+
+        // Envía un JSON a la ruta especificada
+        //a
+        const responseData = await api.postData(identifierJSON,'/login/identifier');
+        const hasCredential = Object.values(responseData)[0];
+
+        if(hasCredential) {
+            toPasswordView(identifierJSON);
+        } else {
+            alert("El identificador no está registrado :(");
+        }
     });
 }
 
-async function toPasswordView(identifier) {
+async function toPasswordView(identifierJSON) {
 
-    const identifierJSON = JSON.stringify(
+    //      console.log(identifierJSON);
+
+    const responseData = await api.postData(identifierJSON,'/login/password');
+    const hasPassword = Object.values(responseData)[0];
+
+    let labelInnerHTML = hasPassword ? "Por favor,ingresa tu contraseña..." : "Por favor,define tu contraseña...";
+
+    /* if(hasPassword) {
+        labelInnerHTML = "Por favor,define tu contraseña...";
+    } else {
+        labelInnerHTML = "Por favor,ingresa tu contraseña...";
+    } */
+    
+    helper.clearBody();
+    helper.showComponent(body, components.header());
+    helper.showComponent(body, components.loginPassword());
+    helper.modifyInnerHTML(document.querySelector(".section_password"),"label_password",labelInnerHTML);
+
+    console.log(components.loginPassword().getElementsByClassName("label_password"));
+
+
+
+    // document.querySelector('.label_password').innerHTML = "DEPENDE DE LA PETICIÓN";
+    
+}
+
+function defineListener(target, event, action) { // Quien, qué y acción por hacer
+    target.addEventListener(event, action);
+    return target;
+}
+
+    /* const identifierJSON = JSON.stringify(
             {
                 "identifier":parseInt(identifier)
             })
 
-    const hasCredential = await api.postData(identifierJSON,'/login/identifier');
-    console.log(hasCredential);
+
     
-
-
-    helper.clearBody();
-    helper.showComponent(body, components.header);
-    helper.showComponent(body, components.loginPassword);
-    document.querySelector('.label_password').innerHTML = "DEPENDE DE LA PETICIÓN";
-
+    
+    
+    console.log(components.loginPassword().getElementsByClassName("label_password"));
 
 
 
@@ -61,11 +105,11 @@ async function toPasswordView(identifier) {
     if(inputSubmitPrev == null ) {
         return false;
     }
-    createListener(inputSubmitPrev,"click",toStartView);
+    defineListener(inputSubmitPrev,"click",toStartView);
     if(inputSubmitPrev == null ) {
         return false;
     }
-    createListener(inputSubmitLogin,"click",toHomeView);
+    defineListener(inputSubmitLogin,"click",toHomeView);
 }
 
 function toHomeView() {
@@ -76,8 +120,4 @@ function toHomeView() {
     helper.showComponent(body, components.header);
     helper.showComponent(body, components.home);
 }
-
-function createListener(target, event, action) {
-    target.addEventListener(event, action);
-    return target;
-}
+*/
