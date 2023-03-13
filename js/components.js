@@ -85,11 +85,42 @@ function loginIdentifier() {
 
 function carousel() {
     /*
-    <section class="section_carousell">
-    </section>`
+    <section class="section_carousel">
+        <div class="carousel_container">
+            <img class="img_carousel img_carousel_1" src="/imgs/carousel/carousel_hamburguesa.jpeg" alt="">
+            <img class="img_carousel img_carousel_2" src="/imgs/carousel/carousel_cafe.jpeg" alt="">
+            <img class="img_carousel img_carousel_3" src="/imgs/carousel/carousel_alitas.jpeg" alt="">
+            <img class="img_carousel img_carousel_4" src="/imgs/carousel/carousel_malteadas.jpeg" alt="">
+        </div>
+    </section>
     */
    const $component = document.createElement("section");
-   $component.classList.add("section_carousell");
+   $component.classList.add("section_carousel");
+
+   const $element1 = document.createElement("div");
+   $element1.classList.add("carousel_container");
+
+   const $element2 = document.createElement("img");
+   $element2.classList.add("img_carousel")
+   $element2.src = "/imgs/carousel/carousel_hamburguesa.jpeg"
+   
+   const $element3 = document.createElement("img");
+   $element3.classList.add("img_carousel")
+   $element3.src = "/imgs/carousel/carousel_cafe.jpeg"
+
+
+   const $element4 = document.createElement("img");
+   $element4.classList.add("img_carousel")
+   $element4.src = "/imgs/carousel/carousel_alitas.jpeg"
+
+
+   const $element5 = document.createElement("img");
+   $element5.classList.add("img_carousel")
+   $element5.src = "/imgs/carousel/carousel_malteadas.jpeg"
+
+   $element1.append($element2,$element3,$element4,$element5);
+   $component.append($element1);
+
    return $component;
 }
 

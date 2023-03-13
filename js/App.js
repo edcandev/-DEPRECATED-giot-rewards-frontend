@@ -4,9 +4,15 @@ import * as api from "./api.js";
 
 const body = document.querySelector(".body");
 
+let carouselWorker = new Worker("/js/carousel_worker.js");
+
+let currentImage = 1;
+
+
 let inputSubmitIdentifier;
 let inputSubmitPrev;
 let inputSubmitLogin;
+
 // Componenetes de inicio
 addEventListener('DOMContentLoaded', () => {
 
@@ -16,16 +22,14 @@ addEventListener('DOMContentLoaded', () => {
 
     // En este punto, se validó el ID
 
-    
-
-
 });
 
 function toStartView() {
-    helper.clearBody();
+
+    //helper.clearBody()
     helper.showComponent(body,components.header());
-    helper.showComponent(body,components.carousel());
-    helper.showComponent(body,components.loginIdentifier());
+    //helper.showComponent(body,components.carousel());
+    //helper.showComponent(body,components.loginIdentifier());
 
     
 
@@ -42,13 +46,17 @@ function toStartView() {
 
         // Envía un JSON a la ruta especificada
         //a
-        const responseData = await api.postData(identifierJSON,'/login/identifier');
-        const hasCredential = Object.values(responseData)[0];
+        const responseData = await api.postData(identifierJSON,'/login/identifier').catch(()=> console.log("Error en la petición"));
 
-        if(hasCredential) {
-            toPasswordView(identifierJSON);
-        } else {
-            alert("El identificador no está registrado :(");
+        if(responseData != null) {
+
+            const hasCredential = Object.values(responseData)[0];
+            
+            if(hasCredential) {
+                toPasswordView(identifierJSON);
+            } else {
+                alert("El identificador no está registrado :(");
+            }
         }
     });
 }
@@ -86,6 +94,28 @@ function defineListener(target, event, action) { // Quien, qué y acción por ha
     return target;
 }
 
+carouselWorker.onmessage = (ev) => {
+    const carouselContainer = document.querySelector(".carousel_container")
+
+    if(carouselContainer != null) {
+
+        if(currentImage == 4) {
+            carouselContainer.scroll({
+                behavior:"smooth",
+                top:0,
+                left: 0
+            })
+            currentImage = 1;
+        } else {
+            carouselContainer.scrollBy({
+                behavior:"smooth",
+                top:0,
+                left: carouselContainer.offsetWidth
+            })
+            currentImage++;
+        }
+    }
+}
     /* const identifierJSON = JSON.stringify(
             {
                 "identifier":parseInt(identifier)
