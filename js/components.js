@@ -162,7 +162,14 @@ function loginPassword() {
 function home() {
     /*
     <section class="section_home">
-        <h2 class="h2_home">Bienvenido, {user}</h2>
+        <h2 class="h2_home">Hola, {user}</h2>
+        <h3 class="h3_home">Nos alegra mucho verte de nuevo</h3>
+        <div class="grid_container_home">
+            <div class="grid_item_home grid_item_home_1">consultar</div>
+            <div class="grid_item_home grid_item_home_2">canjear</div>
+            <div class="grid_item_home grid_item_home_3">Menú</div>
+            <div class="grid_item_home grid_item_home_4">Promos</div>
+        </div>
     </section>
     */
     const $component = document.createElement("section");

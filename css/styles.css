@@ -155,10 +155,7 @@ body {
 /* HOME STYLES */
 
 .section_home {
-    flex-wrap: wrap;
     height: 80%;
-    align-content: space-evenly;
-    justify-content: center;
     background-color: var(--yellow-light);
     padding: 10%;
 }
@@ -168,19 +165,38 @@ body {
 }
 .grid_container_home {
     background-color: #5B5C5C;
-    margin: 10% auto;
-    width: 90%;
-    gap: 10px;
+    margin: 30% auto;
+    width: 100%;
     display: grid;
-    grid-template-columns: 1fr, 1fr;
-    grid-template-rows: 1fr, 1fr;
-
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
 }
+
+.grid_item_home {
+    aspect-ratio: 1/1;
+    border-radius: 20px;
+    padding: 10%;
+}
+
+
 .grid_item_home_1 {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
+
+    background-color:red;
 }
 .grid_item_home_2 {
-    grid-column: 2 / 3;
-    grid-row: 1 / 2;
+
+    background-color: blue;
+
+}
+.grid_item_home_3 {
+
+    background-color: green;    
+
+
+}
+.grid_item_home_4 {
+
+    background-color: yellow;
+
 }

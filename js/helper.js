@@ -52,9 +52,12 @@ function clearBody() {
 function modifyInnerHTML(source, elementClass, innerHTML) {
 
     const elementToModify = source.getElementsByClassName(elementClass)[0];
-    console.log(elementToModify);
+    //console.log(elementToModify);
     elementToModify.innerHTML = innerHTML;
 }
+function defineListener(target, event, action) { // Quien, qué y acción por hacer
+    target.addEventListener(event, action);
+    return target;
+}
 
-
-export { showComponent, hideComponent, clearBody, modifyInnerHTML }
+export { showComponent, hideComponent, clearBody, modifyInnerHTML, defineListener }

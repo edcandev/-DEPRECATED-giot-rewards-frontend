@@ -26,15 +26,15 @@ addEventListener('DOMContentLoaded', () => {
 
 function toStartView() {
 
-    //helper.clearBody()
+    helper.clearBody()
     helper.showComponent(body,components.header());
-    //helper.showComponent(body,components.carousel());
-    //helper.showComponent(body,components.loginIdentifier());
+    helper.showComponent(body,components.carousel());
+    helper.showComponent(body,components.loginIdentifier());
 
     
 
     inputSubmitIdentifier = document.querySelector(".input_submit_identifier");
-    defineListener(inputSubmitIdentifier,'click', async ()=> {
+    helper.defineListener(inputSubmitIdentifier,'click', async ()=> {
 
         // Revisamos si existe el indentificador
 
@@ -53,7 +53,7 @@ function toStartView() {
             const hasCredential = Object.values(responseData)[0];
             
             if(hasCredential) {
-                toPasswordView(identifierJSON);
+                toPasswordView(document.querySelector('.input_login').value);
             } else {
                 alert("El identificador no está registrado :(");
             }
@@ -61,21 +61,19 @@ function toStartView() {
     });
 }
 
-async function toPasswordView(identifierJSON) {
+async function toPasswordView(identifier) {
 
-    //      console.log(identifierJSON);
+    const identifierJSON = JSON.stringify(
+        {
+        "identifier": parseInt(identifier)
+        });
+
 
     const responseData = await api.postData(identifierJSON,'/login/password');
     const hasPassword = Object.values(responseData)[0];
 
     let labelInnerHTML = hasPassword ? "Por favor,ingresa tu contraseña..." : "Por favor,define tu contraseña...";
 
-    /* if(hasPassword) {
-        labelInnerHTML = "Por favor,define tu contraseña...";
-    } else {
-        labelInnerHTML = "Por favor,ingresa tu contraseña...";
-    } */
-    
     helper.clearBody();
     helper.showComponent(body, components.header());
     helper.showComponent(body, components.loginPassword());
@@ -83,16 +81,55 @@ async function toPasswordView(identifierJSON) {
 
     console.log(components.loginPassword().getElementsByClassName("label_password"));
 
+    inputSubmitPrev = document.querySelector('.input_submit_prev');
+    inputSubmitLogin = document.querySelector('.input_submit_login');
+
+    if(inputSubmitPrev != null ) {
+        helper.defineListener(inputSubmitPrev,"click",toStartView);
+    }
+    if(inputSubmitPrev != null ) {
+        helper.defineListener(inputSubmitLogin,"click",async ()=> {
+
+            const validationJSON = JSON.stringify(
+                {
+                "identifier": parseInt(identifier),
+                "password": document.querySelector('.input_password').value
+                });
+        
+                const responseData = await api.postData(validationJSON,'/login/validation');
+                const validated = Object.values(responseData);
+        
+                console.log(responseData);
+
+            toHomeView(validated);
+        });
+    }
+
+
+
+
+
+
 
 
     // document.querySelector('.label_password').innerHTML = "DEPENDE DE LA PETICIÓN";
     
 }
 
-function defineListener(target, event, action) { // Quien, qué y acción por hacer
-    target.addEventListener(event, action);
-    return target;
+async function toHomeView(validated) {
+
+    
+
+
+
+    window.history.pushState('home','Title','/home');
+
+    helper.clearBody();
+    helper.showComponent(body, components.header());
+    helper.showComponent(body, components.home());
 }
+
+
 
 carouselWorker.onmessage = (ev) => {
     const carouselContainer = document.querySelector(".carousel_container")
@@ -141,13 +178,5 @@ carouselWorker.onmessage = (ev) => {
     }
     defineListener(inputSubmitLogin,"click",toHomeView);
 }
-
-function toHomeView() {
-
-    window.history.pushState('home','Title','/home');
-
-    helper.clearBody();
-    helper.showComponent(body, components.header);
-    helper.showComponent(body, components.home);
-}
 */
+
