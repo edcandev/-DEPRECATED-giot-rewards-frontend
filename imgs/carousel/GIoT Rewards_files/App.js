@@ -26,7 +26,7 @@ addEventListener('DOMContentLoaded', () => {
 
 function toStartView() {
 
-    helper.clearBody();
+    //helper.clearBody();
     helper.showComponent(body,components.header());
     helper.showComponent(body,components.carousel());
     helper.showComponent(body,components.loginIdentifier());
@@ -88,7 +88,7 @@ async function toPasswordView(identifier) {
     if(inputSubmitPrev != null ) {
         helper.defineListener(inputSubmitPrev,"click",toStartView);
     }
-    if(inputSubmitLogin != null ) {
+    if(inputSubmitPrev != null ) {
         helper.defineListener(inputSubmitLogin,"click",async ()=> {
 
             const validationJSON = JSON.stringify(

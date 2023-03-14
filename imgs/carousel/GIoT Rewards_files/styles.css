@@ -184,8 +184,7 @@ body {
 .grid_item_home {
     aspect-ratio: 1/1;
     border-radius: 20px;
-    padding: 0%;
-    width: 100%;
+    padding: 10%;
 }
 
 
