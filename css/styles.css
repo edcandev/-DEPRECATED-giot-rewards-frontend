@@ -160,6 +160,12 @@ body {
     padding: 5%;
 }
 
+.section_consultar {
+    height: 80%;
+    background-color: var(--gray-dark);
+    padding: 5%;
+}
+
 .h2_home {
     font-size: 300%;
     color: var(--gray-dark);
