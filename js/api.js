@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8080';
+const API_URL = 'http://localhost:8080'; // azure.openjdk.com.osou....
 
 async function postData(data, path) {
     let response = await fetch(API_URL + path,

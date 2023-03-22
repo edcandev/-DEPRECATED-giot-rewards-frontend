@@ -26,9 +26,9 @@ addEventListener('DOMContentLoaded', () => {
 
 function toStartView() {
 
-    //helper.clearBody();
+    helper.clearBody();
     helper.showComponent(body,components.header());
-    helper.showComponent(body, components.home())
+    //helper.showComponent(body, components.home())
     helper.showComponent(body,components.carousel());
     helper.showComponent(body,components.loginIdentifier());
 
@@ -37,24 +37,30 @@ function toStartView() {
     inputSubmitIdentifier = document.querySelector(".input_submit_identifier");
     helper.defineListener(inputSubmitIdentifier,'click', async ()=> {
 
+        const reqIdentifier = parseInt(document.querySelector('.input_login').value)
+
+
         // Revisamos si existe el indentificador
 
         const identifierJSON = JSON.stringify(
             {
-            "identifier": parseInt(document.querySelector('.input_login').value)
+            "identifier": reqIdentifier
             });
 
 
         // Envía un JSON a la ruta especificada
         //a
-        const responseData = await api.postData(identifierJSON,'/login/identifier').catch(()=> console.log("Error en la petición"));
+        const responseData = await api.postData(identifierJSON,'/api/validation/identifier')
+            .catch(()=> console.log("Error en la petición"));
+
+            //console.log(responseData);
 
         if(responseData != null) {
 
             const hasCredential = Object.values(responseData)[0];
             
             if(hasCredential) {
-                toPasswordView(document.querySelector('.input_login').value);
+                toPasswordView(responseData, reqIdentifier);
             } else {
                 document.querySelector(".input_login").value = "";
                 alert("El identificador no está registrado :(");
@@ -63,25 +69,18 @@ function toStartView() {
     });
 }
 
-async function toPasswordView(identifier) {
+async function toPasswordView(responseData,_reqIdentifier) {
 
-    const identifierJSON = JSON.stringify(
-        {
-        "identifier": parseInt(identifier)
-        });
+    const hasPassword = Object.values(responseData)[1];
 
-
-    const responseData = await api.postData(identifierJSON,'/login/password');
-    const hasPassword = Object.values(responseData)[0];
-
-    let labelInnerHTML = hasPassword ? "Por favor,ingresa tu contraseña..." : "Por favor,define tu contraseña...";
+    let labelInnerHTML = hasPassword ? "Por favor, ingresa tu contraseña..." : "Por favor, define tu contraseña...";
 
     helper.clearBody();
     helper.showComponent(body, components.header());
     helper.showComponent(body, components.loginPassword());
     helper.modifyInnerHTML(document.querySelector(".section_password"),"label_password",labelInnerHTML);
 
-    console.log(components.loginPassword().getElementsByClassName("label_password"));
+    // console.log(components.loginPassword().getElementsByClassName("label_password"));
 
     inputSubmitPrev = document.querySelector('.input_submit_prev');
     inputSubmitLogin = document.querySelector('.input_submit_login');
@@ -92,17 +91,17 @@ async function toPasswordView(identifier) {
     if(inputSubmitLogin != null ) {
         helper.defineListener(inputSubmitLogin,"click",async ()=> {
 
-            const validationJSON = JSON.stringify(
+            const validationLoginJSON = JSON.stringify(
                 {
-                "identifier": parseInt(identifier),
+                "identifier": _reqIdentifier,
                 "password": document.querySelector('.input_password').value
                 });
-        
-                const responseData = await api.postData(validationJSON,'/login/validation');
 
-                const validated = responseData.validated;
+                const responseData = await api.postData(validationLoginJSON,'/api/validation/login');
 
-                console.log(validated);
+                // console.log(responseData);
+
+                const validated = responseData.isLogged; // Respuesta del JSON 
 
                 if(validated) {
                     toHomeView(responseData);
@@ -132,7 +131,7 @@ async function toHomeView(validationData) {
     helper.clearBody();
     helper.showComponent(body, components.header());
     helper.showComponent(body, components.home());
-    helper.modifyInnerHTML(document.querySelector(".section_home"),"h2_home",`Hola, ${validationData.user.firstname}`);
+
 }
 
 

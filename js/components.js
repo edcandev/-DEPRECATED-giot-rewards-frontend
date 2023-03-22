@@ -134,15 +134,16 @@ function loginPassword() {
     </section>`;*/
     const $component = document.createElement("section");
     $component.classList.add("section_password");
-
+    
     const $element1 = document.createElement("label");
     $element1.classList.add("label_password");
     $element1.for ="password";
 
     const $element2 = document.createElement("input");
-    $element2.classList.add("input_password")
+    //$element2.required = true;
+    $element2.classList.add("input_password");
     $element2.type = "password";
-    $element2.name = "password";
+    //$element2.name = "password";
     $element2.id = "password";
 
     const $element3 = document.createElement("img");
