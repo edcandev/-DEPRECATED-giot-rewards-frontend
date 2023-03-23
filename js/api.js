@@ -3,12 +3,36 @@ const API_URL = 'http://localhost:8080'; // azure.openjdk.com.osou....
 async function postData(data, path) {
     let response = await fetch(API_URL + path,
     {
-        method:"POST",
+        method: "POST",
         body: data,
         headers: {"Content-type": "application/json;"}
     })
     return await response.json();
-
+}
+async function postDataAuth(data, path) {
+    let response = await fetch(API_URL + path,
+    {
+        method: "POST",
+        body: data,
+        headers:
+        {
+            "Content-type": "application/json;",
+            "Authorization": localStorage.token
+        }
+    })
+    return await response.json();
+}
+async function getDataAuth(path) {
+    let response = await fetch(API_URL + path,
+    {
+        method: "GET",
+        headers:
+        {
+            "Content-type": "application/json;",
+            "Authorization": localStorage.token
+        }
+    })
+    return await response.json();
 }
 
 /* inputSubmitIdentifier.addEventListener("click", async (e)=> {
@@ -31,4 +55,4 @@ async function postData(data, path) {
     components.showPasswordComponent(false);
 }) */
 
-export { postData };
+export { getDataAuth, postData, postDataAuth };

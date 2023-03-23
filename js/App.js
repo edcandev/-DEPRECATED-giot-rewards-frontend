@@ -50,7 +50,7 @@ function toStartView() {
 
         // Envía un JSON a la ruta especificada
         //a
-        const responseData = await api.postData(identifierJSON,'/api/validation/identifier')
+        const responseData = await api.postData(identifierJSON,'/api/auth/identifier')
             .catch(()=> console.log("Error en la petición"));
 
             //console.log(responseData);
@@ -97,14 +97,20 @@ async function toPasswordView(responseData,_reqIdentifier) {
                 "password": document.querySelector('.input_password').value
                 });
 
-                const responseData = await api.postData(validationLoginJSON,'/api/validation/login');
+                const responseData = await api.postData(validationLoginJSON,'/api/auth/login');
 
                 // console.log(responseData);
 
-                const validated = responseData.isLogged; // Respuesta del JSON 
+                const validated = responseData.isLogged; // Respuesta del JSON
+
 
                 if(validated) {
-                    toHomeView(responseData);
+
+                    localStorage.token = responseData.token;
+
+                    await api.getDataAuth('/api/get/home');
+
+                    toHomeView();
                 } else {
                     document.querySelector(".input_password").value = "";
                     alert("El identificador no está registrado :(");
@@ -124,7 +130,7 @@ async function toPasswordView(responseData,_reqIdentifier) {
     
 }
 
-async function toHomeView(validationData) {
+async function toHomeView() {
 
     window.history.pushState('home','Title','/home');
 
