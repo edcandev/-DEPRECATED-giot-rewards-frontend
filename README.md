@@ -1,4 +1,4 @@
-*GIoT Rewards Frontend*
+# GIoT Rewards Frontend
 
 This frontend app is planned to be used on mobile devices making use of the PWA features implemented on it.
 In case you're not using a mobile device, please fell free to use the Google Chrome DevTools Mobile Emulator.
