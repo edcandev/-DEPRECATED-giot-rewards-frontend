@@ -38,7 +38,7 @@ function header() {
 
     const $element2 = document.createElement("img");
     $element2.classList.add("img_header");
-    $element2.src = "/imgs/giot_rewards_iso.png";
+    $element2.src = "imgs/giot_rewards_iso.png";
 
     $component.append($element1, $element2);
     return $component;
@@ -72,7 +72,7 @@ function loginIdentifier() {
 
     const $element4 = document.createElement("img");
     $element4.classList.add("img_login","input_submit_identifier")
-    $element4.src = "/imgs/giot_rewards_next.png";
+    $element4.src = "imgs/giot_rewards_next.png";
 
     $element1.append($element2,$element3);
     $component.append($element1);
@@ -102,21 +102,21 @@ function carousel() {
 
    const $element2 = document.createElement("img");
    $element2.classList.add("img_carousel")
-   $element2.src = "/imgs/carousel/carousel_hamburguesa.jpeg"
+   $element2.src = "imgs/carousel/carousel_hamburguesa.jpeg"
    
    const $element3 = document.createElement("img");
    $element3.classList.add("img_carousel")
-   $element3.src = "/imgs/carousel/carousel_cafe.jpeg"
+   $element3.src = "imgs/carousel/carousel_cafe.jpeg"
 
 
    const $element4 = document.createElement("img");
    $element4.classList.add("img_carousel")
-   $element4.src = "/imgs/carousel/carousel_alitas.jpeg"
+   $element4.src = "imgs/carousel/carousel_alitas.jpeg"
 
 
    const $element5 = document.createElement("img");
    $element5.classList.add("img_carousel")
-   $element5.src = "/imgs/carousel/carousel_malteadas.jpeg"
+   $element5.src = "imgs/carousel/carousel_malteadas.jpeg"
 
    $element1.append($element2,$element3,$element4,$element5);
    $component.append($element1);
@@ -148,11 +148,11 @@ function loginPassword() {
 
     const $element3 = document.createElement("img");
     $element3.classList.add("img_password","input_submit_prev")
-    $element3.src = "/imgs/giot_rewards_prev.png";
+    $element3.src = "imgs/giot_rewards_prev.png";
     
     const $element4 = document.createElement("img");
     $element4.classList.add("img_password","input_submit_login")
-    $element4.src = "/imgs/giot_rewards_login.png";
+    $element4.src = "imgs/giot_rewards_login.png";
 
     $component.append($element1,$element2,$element3,$element4);
 

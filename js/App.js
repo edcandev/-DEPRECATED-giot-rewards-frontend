@@ -18,8 +18,6 @@ addEventListener('DOMContentLoaded', () => {
 
     toStartView();
     // Evento que envía ID
-    
-
     // En este punto, se validó el ID
 
 });
