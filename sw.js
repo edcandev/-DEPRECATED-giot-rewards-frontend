@@ -11,11 +11,26 @@ var STATIC_FILES = [
     "./imgs/giot_rewards_rw512.png",
 ];
 
+self.addEventListener('install', function(event){
+    console.log("[Service Worker] Instalando Service Worker...", event);
+});
+
+self.addEventListener('activate', function(event){
+    console.log("[Service Worker] Activando Service Worker...", event);
+    return self.clients.claim();
+});
+
+/*self.addEventListener("fetch", function(event){
+    console.log("[Service Worker] Haciendo fetching de...", event);
+    event.respondWith(null);
+});
+*/
+
 self.addEventListener("install", e =>{
     e.waitUntil(
         caches.open("static").then(cache => {
             return cache.addAll([
-                , 
+                
                 
             ]);
         })
