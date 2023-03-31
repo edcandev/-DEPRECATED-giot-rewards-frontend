@@ -15,7 +15,7 @@ if('serviceWorker' in navigator){
 
 const body = document.querySelector(".body");
 
-let carouselWorker = new Worker("/js/carousel_worker.js");
+let carouselWorker = new Worker("js/carousel_worker.js");
 
 let currentImage = 1;
 
