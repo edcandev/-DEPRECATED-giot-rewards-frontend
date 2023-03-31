@@ -7,6 +7,9 @@ if('serviceWorker' in navigator){
     .register('sw.js')
     .then(function(){
         console.log('Service worker registrado');
+    })
+    .catch(function(err){
+        console.log(err);
     });
 }
 
