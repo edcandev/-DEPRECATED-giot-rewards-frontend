@@ -2,9 +2,20 @@ import * as components from "./components.js";
 import * as helper from "./helper.js";
 import * as api from "./api.js";
 
+if('serviceWorker' in navigator){
+    navigator.serviceWorker
+    .register('sw.js')
+    .then(function(){
+        console.log('Service worker registrado');
+    })
+    .catch(function(err){
+        console.log(err);
+    });
+}
+
 const body = document.querySelector(".body");
 
-let carouselWorker = new Worker("/js/carousel_worker.js");
+let carouselWorker = new Worker("js/carousel_worker.js");
 
 let currentImage = 1;
 
